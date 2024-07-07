@@ -1,0 +1,70 @@
+
+## Inside the set steps for jenkins
+
+Below 3 step are connectivity Btween mastnode and Agent 
+ -----------------------------------------------------------
+
+Step1: Open the Dashboard ---> ManageJenkins ---> Nodes ---> clikc the Built-In Node and Configure (Number of executors as chnage as "Zero 0")
+Step2: Again open the Dashboard --> Manage Jenkins --> Nodes --> New node Name - any (Ex: Jenkins_Agent) amd click Permanent Agent and created button.
+
+      - Name : Jenkins_Agent
+      - Description
+      - Number of executors
+      - Remote root directory
+      - Labels
+      - Usage
+      - Launch method: - Lunch Agent via SSH
+                       - Host : We need to give your Jenkins_Agent Private IPv4 addresses
+                       - Credentials (Add Credentials)
+                                  1. Domain : Global Credentials
+                                  2. Kind : SSH Username with private key
+                                  3. Scope : Global(Jenkins, nodes, items)
+                                  4. ID and Description : Jenkins_Agent
+                                  5. Username : ubuntu
+                                  6. Privatekey enter directory click add button and paste you Jenkins_Master ssh/id_rsa text content.
+                                  7 click add button.
+       
+       
+       - Credentials                    :  ubuntu(Jenkins_Agent)
+       - Host Key Verification Strategy :  Non verifying Verification strategy.
+       - Click on Save button.
+
+Step 3: After setup come to Dashboard and click New Item and name (Test) and pipline and save.
+        - Dashboard --> Test  ---> Configuration
+         - Pipeline script  and clikc apply button.
+         - click builNow Button and check the connectivity Successfully or not [- Running on Jenkins_Agent in /home/ubuntu/workspace/Test]
+
+
+Note: After check connectivity Btween mastnode and Agent we can delete the Build Pipeline.
+
+**************************************************************************************************************************************************************************************************************************************************************
+# Integrate Mavne to jenkins & Add GitHub Credentials to Jenkins
+_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+# Step1: Install and manage Plugins (Maven, Java).
+
+1.Dashboard  ---> Manage Jenkins ---> Plugins ----> Available Plugins
+     1. Maven Integration.
+     2. Pipeline Maven Integration
+     3. Eclipse Temurin installer  -------> click Install.
+
+2. Dashboard  ---> Manage Jenkins ---> Tools
+    1. Maven installations 
+           - Name : Maven3 
+           - Click Install automatically
+           - Install from Apache Version : 3.9.8   
+    2. JDK installations
+               - Name : Java17
+                - Click Install automatically and Add installer [Install from adoptium.net - JDK verison jdk-17.0.5+8]
+
+# Step2:Adding GitHub Credentials to Jenkins
+
+1.Dashboard  ---> Manage Jenkins ---> Credentials --->  click Stores scoped to Jenkins Global Add Credentials  
+       ==> New credentials:
+                            - Kind : Username with Password
+                            - Scope : Global
+                            - Username : Your GitHub name (jagan-18)
+                            - Password : Personal access tokens 
+                            - ID : GitHub
+                            - Description : GitHub
+
